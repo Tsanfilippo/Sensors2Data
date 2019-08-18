@@ -2,8 +2,11 @@
 
 export(CablePred)
 export(FishDepthTemp)
-export(SelectTrawlData)
+export(ProcessSeabird)
 export(TimeOnBottom)
 export(new.dat)
+import(oce)
+import(plyr)
+import(rLakeAnalyzer)
 import(shiny)
 import(svDialogs)
