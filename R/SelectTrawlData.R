@@ -17,7 +17,7 @@
 #'
 #'
 #'
-select_trawl_data <- function() {
+SelectTrawlData<- function() {
 
 # This code was written by Dave Warner on a Mac Mini using R 3.3.3 while on the
 # R/V Sturgeon on Lake Michigan, 11 August 2018.
@@ -55,7 +55,7 @@ options(scipen = 999)
 # Prompt to select a data file that has been exported/extracted from Marport SDS.
 the.file <- dlg_open(title = "Select one Marport data file in data folder", filters = dlg_filters[c("R", "All"), ])$res
 
-mydat<-read.csv(the.file, dec = ".", numerals =  "no.loss",
+mydat <<-read.csv(the.file, dec = ".", numerals =  "no.loss",
                 col.names = c("Time", "Receiver", "Sensor.Location",
               "Type.of.Data", "Value", "Type", "SNR", "Noise.floor"),
                 na.strings = "NA",
@@ -70,7 +70,7 @@ head(mydat)
 # master.  These numbers correspond to the sensor nodes in Scala.
 # This MAY need to be changed depending on which sensors you have on the net.  It is YOUR job
 # to figure out which ones you are using.  Not anyone elese.
-catch.and.spread <- subset(mydat, Sensor.Location %in% c("11","12","18","20",  "23", "26"))
+catch.and.spread <<- subset(mydat, Sensor.Location %in% c("11","12","18","20",  "23", "26"))
 
 # The time vairable is a string.  Need to convert to a number
 catch.and.spread$Time <- as.numeric(catch.and.spread$Time)
@@ -82,15 +82,16 @@ catch.and.spread$date.time <- as.POSIXct((catch.and.spread$Time/1000), origin = 
 
 
 # Now you need to enter a date-time that will mark the beginning of the data you want to keep.
-datetime <- as.POSIXct(dlg_input(GUI =datetime,"Enter the date-time (e.g. 2018-08-12 22:45:00) of the start of data you wish to keep")$res )
-datetime2 <- as.POSIXct(dlg_input(GUI =datetime,"Enter the date-time (e.g. 2018-08-12 22:45:00) of the end of data you wish to keep")$res )
-year <- substr(datetime, 1,4)
-lake <- dlg_input(GUI =vessel,"Enter lake # (e.g. L2 for LM, 3 for LH)")$res
-vessel <- dlg_input(GUI =vessel,"Enter vessel (e.g. v88 for Sturgeon, v17 For Steelhead)")$res
-transect <- dlg_input(GUI=transect, "Enter transect (e.g. mw2, no3")$res
-serials <- dlg_input(GUI = serials, "Enter serials (e.g. ser123, for multiple enter ser123ser456)")$res
-type1 <- dlg_input(GUI = Type.of.Data, "Enter 1st data type name (e.g. Depth, Temperature)")$res
-type2 <- dlg_input(GUI = Type.of.Data, "Enter 2nd data type name (e.g. Depth, Temperature)")$res
+datetime <<- as.POSIXct(dlg_input(GUI =datetime,"Enter the date-time (e.g. 2018-08-12 22:45:00) of the start of data you wish to keep")$res )
+datetime2 <<- as.POSIXct(dlg_input(GUI =datetime,"Enter the date-time (e.g. 2018-08-12 22:45:00) of the end of data you wish to keep")$res )
+#year <- substr(datetime, 1,4)
+#lake <- dlg_input(GUI =vessel,"Enter lake # (e.g. L2 for LM, 3 for LH)")$res
+#vessel <- dlg_input(GUI =vessel,"Enter vessel (e.g. v88 for Sturgeon, v17 For Steelhead)")$res
+#transect <- dlg_input(GUI=transect, "Enter transect (e.g. mw2, no3")$res
+#serials <- dlg_input(GUI = serials, "Enter serials (e.g. ser123, for multiple enter ser123ser456)")$res
+sensor.location <<- as.numeric(dlg_input(GUI = Sensor.Location, "Enter sensor location as a number")$res)
+type1 <<- dlg_input(GUI = Type.of.Data, "Enter 1st data type name (e.g. Depth, Temperature)")$res
+type2 <<- dlg_input(GUI = Type.of.Data, "Enter 2nd data type name (e.g. Depth, Temperature)")$res
 }
 
 

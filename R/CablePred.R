@@ -31,9 +31,8 @@
 CablePred <- function(desired.depth) {
   rdat <- dlg_open(title = "Select data file with cable length and fishing depth data.",
                    filters = dlg_filters[c("R", "All"), ])$res
-  dat <- readRDS (rdat)
+  dat <- read.csv (rdat, header=TRUE)
   cable.lm <- lm(Cable.feet ~ Depth.meters, data = dat)
-  plot(Cable.feet ~ Depth.meters, data=dat)
   desired.depth <- dlg_input(GUI =depth,"Enter desired fishing depth in meters")$res
   cable.required <- as.numeric(coef(cable.lm)[1] + coef(cable.lm)[2]*as.numeric(desired.depth))
   cable.required2 <- paste0("Estimated cable required = ", round(cable.required), " ft")

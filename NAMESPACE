@@ -2,8 +2,8 @@
 
 export(CablePred)
 export(FishDepthTemp)
+export(SelectTrawlData)
 export(TimeOnBottom)
 export(new.dat)
-export(select_trawl_data)
 import(shiny)
 import(svDialogs)

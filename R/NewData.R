@@ -20,12 +20,10 @@
 #' @import svDialogs
 #' @export
 #'
-
-
 new.dat <- function(){
   rdat <- dlg_open(title = "Select data file with cable length and fishing depth data.",
                    filters = dlg_filters[c("R", "All"), ])$res
-  dat <- readRDS (rdat)
+  warp.fdepth.dat <- read.csv(rdat, header=TRUE)
   df <- data.frame(Date = NA, Time= NA, Cable.feet = NA, Depth.meters = NA,
                    Speed = NA, Lake=NA, Vessel = NA)
   df$Date <- dlg_input(GUI =Date,"Enter date as MM/DD/YY")$res
@@ -35,10 +33,9 @@ new.dat <- function(){
   df$Speed <- dlg_input(GUI =Speed,"Enter speed in mph")$res
   df$Lake <- dlg_input(GUI =Lake,"Enter lake as number")$res
   df$Vessel <- dlg_input(GUI =Vessel,"Enter vessel as number")$res
-  warp.fdepth.dat <- readRDS("./data/warp.fdepth.dat.rds")
   warp.fdepth.dat <- rbind(warp.fdepth.dat, df)
-  saveRDS(rdat, paste0(rdat))
-  plot(Cable.feet ~ Depth.meters, data=dat)
+  write.csv(warp.fdepth.dat, paste0(rdat), row.names=FALSE)
+  plot(Cable.feet ~ Depth.meters, data=warp.fdepth.dat )
 }
 
 
