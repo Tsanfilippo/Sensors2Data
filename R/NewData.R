@@ -11,16 +11,17 @@
 #'
 #' @return
 #' Adds a data pair to the trawl cable length and fishing depth file selected. Creates
-#' a plot of cable length versus fishing depth.
+#' a regression plot of cable length versus fishing depth. Creates a plot
+#' of residuals from the regression.
 #'
 #' @details
 #'  This function currently works for/is intended for midwater trawl data collected
 #'  on the USGS RV Sturgeon using a 50 ft midwater trawl.
 #'
-#' @import svDialogs
+#' @import svDialogs ggplot2
 #' @export
 #'
-new.dat <- function(){
+NewData<- function(){
   rdat <- dlg_open(title = "Select data file with cable length and fishing depth data.",
                    filters = dlg_filters[c("R", "All"), ])$res
   warp.fdepth.dat <- read.csv(rdat, header=TRUE)
@@ -36,7 +37,18 @@ new.dat <- function(){
   warp.fdepth.dat <- rbind(warp.fdepth.dat, df)
   write.csv(warp.fdepth.dat, paste0(rdat), row.names=FALSE)
   plot(Cable.feet ~ Depth.meters, data=warp.fdepth.dat )
-}
+  fit <- lm(Cable.feet ~ Depth.meters, data=warp.fdepth.dat)
+  ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) +
+    geom_point() +
+    stat_smooth(method = "lm", col = "magenta") +
+    labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                       "Intercept =",signif(fit$coef[[1]],5 ),
+                       " Slope =",signif(fit$coef[[2]], 5),
+                       " P =",signif(summary(fit)$coef[2,4], 5)))
+  ggplot(fit, aes(fit$fitted.values, fit$residuals)) +
+    geom_point() +
+    labs(x = "Fitted values (ft)", y="Residuas", size=16)
+  }
 
 
 
