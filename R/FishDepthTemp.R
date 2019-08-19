@@ -61,13 +61,12 @@ FishDepthTemp <- function() {
   type1 <<- dlg_input(GUI = Type.of.Data, "Enter 1st data type name (e.g. Depth, Temperature)")$res
   type2 <<- dlg_input(GUI = Type.of.Data, "Enter 2nd data type name (e.g. Depth, Temperature)")$res
 
-  mydat2<-catch.and.spread
   #select just the time range you want using the datetime variable you typed in
   catch.and.spread <- subset(catch.and.spread, date.time > datetime &date.time < datetime2 & Type.of.Data %in% c(type1, type2))
   #catch.and.spread$Serial <- strsplit(serials, split = "ser")
   kpcols <- c('Type.of.Data', 'Value', 'date.time')
-  catch.and.spread <- catch.and.spread[c(kpcols)]
-  depths <- subset(mydat2, Sensor.Location == sensor.location  & Type.of.Data %in% c("Depth", "Temperature"))
+  depths<- catch.and.spread[c(kpcols)]
+  depths <- subset(depths, Sensor.Location == sensor.location  & Type.of.Data %in% c("Depth", "Temperature"))
   depths$time2 <-as.POSIXct(depths$date.time)
   depths$value<-as.numeric(depths$Value)
 
