@@ -28,9 +28,9 @@ new.dat <- function(){
                    Speed = NA, Lake=NA, Vessel = NA)
   df$Date <- dlg_input(GUI =Date,"Enter date as MM/DD/YY")$res
   df$Time<- dlg_input(GUI =Time,"Enter time as HH:MM:SS AM/PM")$res
-  df$Cable.feet <- dlg_input(GUI = Cable.feet,"Enter length of trawl cable used in feet")$res
-  df$Depth.meters <- dlg_input(GUI =Depth.meters,"Enter headrope depth in meters")$res
-  df$Speed <- dlg_input(GUI =Speed,"Enter speed in mph")$res
+  df$Cable.feet <- as.numeric(dlg_input(GUI = Cable.feet,"Enter length of trawl cable used in feet")$res)
+  df$Depth.meters <- as.numeric(dlg_input(GUI =Depth.meters,"Enter headrope depth in meters")$res)
+  df$Speed <- as.numeric(dlg_input(GUI =Speed,"Enter speed in mph")$res)
   df$Lake <- dlg_input(GUI =Lake,"Enter lake as number")$res
   df$Vessel <- dlg_input(GUI =Vessel,"Enter vessel as number")$res
   warp.fdepth.dat <- rbind(warp.fdepth.dat, df)
