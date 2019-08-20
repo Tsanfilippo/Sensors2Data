@@ -2,9 +2,10 @@
 
 export(CablePred)
 export(FishDepthTemp)
+export(NewData)
 export(ProcessSeabird)
 export(TimeOnBottom)
-export(new.dat)
+import(ggplot2)
 import(oce)
 import(plyr)
 import(rLakeAnalyzer)

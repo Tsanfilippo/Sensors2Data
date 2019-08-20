@@ -11,16 +11,17 @@
 #'
 #' @return
 #' Adds a data pair to the trawl cable length and fishing depth file selected. Creates
-#' a plot of cable length versus fishing depth.
+#' a regression plot of cable length versus fishing depth. Creates a plot
+#' of residuals from the regression.
 #'
 #' @details
 #'  This function currently works for/is intended for midwater trawl data collected
 #'  on the USGS RV Sturgeon using a 50 ft midwater trawl.
 #'
-#' @import svDialogs
+#' @import svDialogs ggplot2
 #' @export
 #'
-new.dat <- function(){
+NewData<- function(){
   rdat <- dlg_open(title = "Select data file with cable length and fishing depth data.",
                    filters = dlg_filters[c("R", "All"), ])$res
   warp.fdepth.dat <- read.csv(rdat, header=TRUE)
@@ -28,15 +29,28 @@ new.dat <- function(){
                    Speed = NA, Lake=NA, Vessel = NA)
   df$Date <- dlg_input(GUI =Date,"Enter date as MM/DD/YY")$res
   df$Time<- dlg_input(GUI =Time,"Enter time as HH:MM:SS AM/PM")$res
-  df$Cable.feet <- dlg_input(GUI = Cable.feet,"Enter length of trawl cable used in feet")$res
-  df$Depth.meters <- dlg_input(GUI =Depth.meters,"Enter headrope depth in meters")$res
-  df$Speed <- dlg_input(GUI =Speed,"Enter speed in mph")$res
+  df$Cable.feet <- as.numeric(dlg_input(GUI = Cable.feet,"Enter length of trawl cable used in feet")$res)
+  df$Depth.meters <- as.numeric(dlg_input(GUI =Depth.meters,"Enter headrope depth in meters")$res)
+  df$Speed <- as.numeric(dlg_input(GUI =Speed,"Enter speed in mph")$res)
   df$Lake <- dlg_input(GUI =Lake,"Enter lake as number")$res
   df$Vessel <- dlg_input(GUI =Vessel,"Enter vessel as number")$res
   warp.fdepth.dat <- rbind(warp.fdepth.dat, df)
   write.csv(warp.fdepth.dat, paste0(rdat), row.names=FALSE)
-  plot(Cable.feet ~ Depth.meters, data=warp.fdepth.dat )
-}
+
+  fit <- lm(Cable.feet ~ Depth.meters, data=warp.fdepth.dat)
+  p1 <- ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) +
+    geom_point() +
+    stat_smooth(method = "lm", col = "magenta") +
+    labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                       "Intercept =",signif(fit$coef[[1]],5 ),
+                       " Slope =",signif(fit$coef[[2]], 5),
+                       " P =",signif(summary(fit)$coef[2,4], 5)))
+  print(p1)
+  p2 <- ggplot(fit, aes(fit$fitted.values, fit$residuals)) +
+    geom_point() +
+    labs(x = "Fitted values (ft)", y="Residuas", size=16)
+  print(p2)
+  }
 
 
 
