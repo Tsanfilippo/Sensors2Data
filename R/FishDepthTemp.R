@@ -64,7 +64,7 @@ FishDepthTemp <- function() {
   #select just the time range you want using the datetime variable you typed in
   catch.and.spread <- subset(catch.and.spread, date.time > datetime &date.time < datetime2 & Type.of.Data %in% c(type1, type2))
   #catch.and.spread$Serial <- strsplit(serials, split = "ser")
-  kpcols <- c('Type.of.Data', 'Value', 'date.time')
+  kpcols <- c('Type.of.Data', 'Value', 'date.time', 'Sensor.Location')
   depths<- catch.and.spread[c(kpcols)]
   depths <- subset(depths, Sensor.Location == sensor.location  & Type.of.Data %in% c("Depth", "Temperature"))
   depths$time2 <-as.POSIXct(depths$date.time)
