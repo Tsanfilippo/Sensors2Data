@@ -1,6 +1,6 @@
 Package: Sensors2Data
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Collection of Various Functions for Use in Fishery Cruises
 Version: 0.1.0
 Author: Dave Warner <dmwarner@usgs.gov>.
 Maintainer: Dave Warner <dmwarner@usgs.gov>

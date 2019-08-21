@@ -133,10 +133,10 @@ ProcessSeabird <- function() {
 
       column.temp <- round(mean(the.file$temperature),1)
       surface.temp <- round(mean(the.file$temperature[the.file$`Depth Bin`<=1.0]),1)
-      ref.depth <- the.file$`Depth Bin`[abs(the.file$temperature - column.temp) == min(abs(the.file$temperature - column.temp))]
+      #ref.depth <- the.file$`Depth Bin`[abs(the.file$temperature - column.temp) == min(abs(the.file$temperature - column.temp))]
 
-
-        mtext(paste0("Max Depth = ", max.depth, "m", '                                                   Reference Depth = ', ref.depth, "m"), cex=1.5, side=3, line=9, font=3, adj=0)
+        #mtext(paste0("Max Depth = ", max.depth, "m", '                                                   Reference Depth = ', ref.depth, "m"), cex=1.5, side=3, line=9, font=3, adj=0)
+        mtext(paste0("Max Depth = ", max.depth, "m", '                                                   Max.fluor. depth = ', ref.depth, "m"), cex=1.5, side=3, line=9, font=3, adj=0)
         mtext(paste0("Surface Temp = ", surface.temp, "C                                                 Mean Water Column Temp = ", column.temp, "C" ), cex=1.5, side=3, line=7, font=3, adj=0)
 
   dev.off()
