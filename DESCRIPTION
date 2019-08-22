@@ -2,7 +2,7 @@ Package: Sensors2Data
 Type: Package
 Title: Collection of Various Functions for Use in Fishery Cruises
 Version: 0.1.0
-Author: Dave Warner <dmwarner@usgs.gov>.
+Author: Dave Warner <dmwarner@usgs.gov> and Ben Turschak.
 Maintainer: Dave Warner <dmwarner@usgs.gov>
 Description: Various functions for processing of data from CTD, Marport, RBR
 License: GPL (>=2)

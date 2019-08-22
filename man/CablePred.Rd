@@ -24,7 +24,8 @@ Predict cable required (in feet) to reach a headrope depth (in meters) with a mi
 trawl
 }
 \details{
-This function currently works for/is intended for midwater trawl data collected
+This function currently is intended for use with trawl data collected using a sensor
+ that measures the depth of the net
  on the USGS RV Sturgeon using a 50 ft midwater trawl. The modeled cable length
  only includes one predictor variable at present. Given more data and more variable
  conditions, additional predictors as well as types of models may be added or
