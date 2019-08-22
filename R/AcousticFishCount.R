@@ -38,6 +38,8 @@
 #' Currently there is no minimum number of single target detection in a cell to preclude use in calculating density mainly because
 #' we have so few single target detections!
 #'
+#' @author Ben Turschak
+#'
 #' @import ggplot2
 #' @export
 #'
