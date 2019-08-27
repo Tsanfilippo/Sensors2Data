@@ -26,7 +26,7 @@ NewData<- function(){
                    filters = dlg_filters[c("R", "All"), ])$res
   warp.fdepth.dat <- read.csv(rdat, header=TRUE)
   df <- data.frame(Date = NA, Time= NA, Cable.feet = NA, Depth.meters = NA,
-                   Speed = NA, Lake=NA, Vessel = NA)
+                   Speed = NA, Lake=NA, Vessel = NA, Trawl_Id = NA, Tr_Door = NA)
   df$Date <- dlg_input(GUI =Date,"Enter date as MM/DD/YY")$res
   df$Time<- dlg_input(GUI =Time,"Enter time as HH:MM:SS AM/PM")$res
   df$Cable.feet <- as.numeric(dlg_input(GUI = Cable.feet,"Enter length of trawl cable used in feet")$res)
@@ -34,6 +34,8 @@ NewData<- function(){
   df$Speed <- as.numeric(dlg_input(GUI =Speed,"Enter speed in mph")$res)
   df$Lake <- dlg_input(GUI =Lake,"Enter lake as number")$res
   df$Vessel <- dlg_input(GUI =Vessel,"Enter vessel as number")$res
+  df$Trawl_Id <- dlg_input(GUI =Trawl_Id,"Enter trawl ID as number")$res
+  df$Tr_Door <- dlg_input(GUI =Tr_Door,"Enter door ID as number")$res
   warp.fdepth.dat <- rbind(warp.fdepth.dat, df)
   write.csv(warp.fdepth.dat, paste0(rdat), row.names=FALSE)
 
@@ -41,10 +43,11 @@ NewData<- function(){
   p1 <- ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) +
     geom_point() +
     stat_smooth(method = "lm", col = "magenta") +
-    labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
-                       "Intercept =",signif(fit$coef[[1]],5 ),
-                       " Slope =",signif(fit$coef[[2]], 5),
-                       " P =",signif(summary(fit)$coef[2,4], 5)))
+    labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 3),
+                       "Intercept =",signif(fit$coef[[1]],3 ),
+                       " Slope =",signif(fit$coef[[2]], 3),
+                       " P =",signif(summary(fit)$coef[2,4], 3), "N = ",
+                       length(warp.fdepth.dat$Depth.meters)))
   print(p1)
   p2 <- ggplot(fit, aes(fit$fitted.values, fit$residuals)) +
     geom_point() +
