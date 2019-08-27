@@ -23,6 +23,6 @@ A character scalar giving the name of the RData file in \code{CablePred}
 to which new data will be added and which is used by \code{\link{CablePred}}.
 
 
- This function currently works for/is intended for midwater trawl data collected
- on the USGS RV Sturgeon using a 50 ft midwater trawl.
+ This function asks the user for new trawl cable length and fishing depth
+ values and saves them to the user-specific csv file.
 }

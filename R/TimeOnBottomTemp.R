@@ -4,7 +4,7 @@
 #'  A numeric scalar giving the approximate headrope depth for the trawl tow.
 #'
 #' @return
-#' An interactive graph.
+#' An interactive graph from which the user can obtain time on bottom.
 #'
 #'
 #' @details

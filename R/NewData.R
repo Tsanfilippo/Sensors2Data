@@ -15,8 +15,8 @@
 #' of residuals from the regression.
 #'
 #' @details
-#'  This function currently works for/is intended for midwater trawl data collected
-#'  on the USGS RV Sturgeon using a 50 ft midwater trawl.
+#'  This function asks the user for new trawl cable length and fishing depth
+#'  values and saves them to the user-specific csv file.
 #'
 #' @import svDialogs ggplot2
 #' @export

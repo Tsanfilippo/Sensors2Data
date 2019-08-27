@@ -1,28 +1,23 @@
 #' Predict the amount of cable required to reach a desired headrope depth
 #' with a trawl.
 #'
-#'Predict cable required (in feet) to reach a headrope depth (in meters) with a midwater
-#'trawl
-
+# 'Predict cable required (in feet) to reach a headrope depth (in meters) with a midwater
+# 'trawl
+#'
 #' @param desired.depth
-#'   A numeric scalar providing the desired head rope depth in meters (also known as
-#'   fishing depth).
-#' @param rdat
-#'   A character scalar giving the name of the RData file that contains the cable length
-#'   and fishing depth data that will be used to fit a model (currently uses lm())
-#'   with fishing depth as the predictor and the cable length as the predicted.
-
+#' Numeric scale the user enters after being prompted which is equal to the desired
+#' fishing depth in meters.
+#'
 #' @return
-#'   The function generates a plot of fishing depth versus cable lenght and returns estimate
-#'  of the cable length required to achieve a desired fishing depth to the console.
+#' The function generates a regression plot of fishing depth versus cable length, a plot
+#' of regression residuals versus predicted fishing depth. Also returns an estimate
+#' of the cable length required and the confidence interval to the console.
 #'
 #'
 #' @details
-#'  This function currently works for/is intended for midwater trawl data collected
-#'  on the USGS RV Sturgeon using a 50 ft midwater trawl. The modeled cable length
-#'  only includes one predictor variable at present. Given more data and more variable
-#'  conditions, additional predictors as well as types of models may be added or
-#'  required.
+#' This function requires input data in the form of a csv file with a variable called
+#' Cable.feet and another called Depth.meters. The user will be prompted to lcoate this
+#' file by the function, then asked to input a desired fishing depth (desired.depth)
 #'
 #' @import svDialogs
 #' @export
