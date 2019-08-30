@@ -2,18 +2,19 @@
 % Please edit documentation in R/TimeOnBottomTemp.R
 \name{TimeOnBottom}
 \alias{TimeOnBottom}
-\title{Estimate time on bottom for trawl}
+\title{Estimate time on bottom for bottom trawl}
 \usage{
-TimeOnBottom(fdep)
+TimeOnBottom()
 }
 \arguments{
-\item{fdep}{A numeric scalar giving the approximate headrope depth for the trawl tow.}
+\item{fdep}{Numeric scale the user enters after being prompted which is equal to the desired
+fishing depth in meters.}
 }
 \value{
 An interactive graph from which the user can obtain time on bottom.
 }
 \description{
-Estimate time on bottom for trawl
+Estimate time on bottom for bottom trawl from RBR or other depth data
 }
 \details{
 Create an interactive graph of depth data recorded by an instrument

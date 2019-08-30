@@ -1,7 +1,10 @@
-#' @title Estimate time on bottom for trawl
+#' Estimate time on bottom for bottom trawl from RBR or other depth data
+#'
+#' @title Estimate time on bottom for bottom trawl
 #'
 #' @param fdep
-#'  A numeric scalar giving the approximate headrope depth for the trawl tow.
+#' Numeric scale the user enters after being prompted which is equal to the desired
+#' fishing depth in meters.
 #'
 #' @return
 #' An interactive graph from which the user can obtain time on bottom.
@@ -17,17 +20,18 @@
 #' @import svDialogs shiny
 #' @export
 #'
-TimeOnBottom <- function(fdep) {
-the.file <- dlg_open(title = "Select csv data file with cable length and fishing depth data.",
+TimeOnBottom <- function() {
+the.file <- dlg_open(title = "Select csv data file with depth and temperature data.",
                    filters = dlg_filters[c("R", "All"), ])$res
+fdep <- dlg_input(GUI = fdep, "Enter approximate fishing depth")$res
 
 mydat<-read.csv(the.file, header = TRUE)
-fdep <- fdep
+fdep <- as.numeric(fdep)
 mydat$time2 <-as.POSIXct(mydat$Time)
-mydat$d.diff <- mydat$Depth - as.numeric(fdep)
+mydat$d.diff <- mydat$Depth - fdep
 kpcols <- c("time2", "Temperature", "Depth", "d.diff")
 mydat <- mydat[c(kpcols)]
-mydat <- subset(mydat, d.diff > -0.75 )
+mydat <- subset(mydat, abs(d.diff) < 5 )
 
 # create the shiny server.  This is the code that makes the plot and lets you select the data.
 # this is what you run using the next section
@@ -39,6 +43,7 @@ server <- function(input,output, session) {
   output$plot <- renderPlot({
     ggplot(mydat, aes(time2, Depth)) +
       geom_point()+
+      scale_y_reverse()+
       labs(y='Depth', size=22, x = "Time")  +
       theme(text = element_text(size=16))
   })
@@ -89,7 +94,7 @@ server <- function(input,output, session) {
 # This is the ui section that lets you interact with and run the code in the server section.
 ui <- fluidPage(
 
-  h3("Click and hold/drag to select the data you want to use for calculation of mean fishing depth and temperature"),
+  h3("Click and hold/drag to select the data you think corresponds to the trawl being on bottom"),
   plotOutput("plot", brush = "user_brush"),
   tableOutput("dat"),
   textOutput("dep"),
