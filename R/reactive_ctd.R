@@ -2,8 +2,9 @@ library(ggplot2)
 library(dplyr)
 library(oce)
 library(rLakeAnalyzer)
+library(shiny)
 
-the.file <- read.csv('/Users/marport/Documents/2019v88ser214_no4.csv')
+the.file <- read.csv("C:\\Users\\dmwarner\\Documents\\Acoustics\\Michigan\\acoustic\\2019\\CTD\\CSV OUTPUT\\2019v88ser214_no4.csv")
 
 the.file2 <- the.file
 
