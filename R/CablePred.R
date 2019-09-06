@@ -29,9 +29,9 @@ CablePred <- function() {
   dat <- read.csv (rdat, header=TRUE)
   cable.lm <- lm(Cable.feet ~ Depth.meters, data = dat)
   desired.depth <- data.frame(Depth.meters = as.numeric(dlg_input(GUI =depth,"Enter desired fishing depth in meters")$res))
-  cable.required <- predict.lm(cable.lm, newdata = desired.depth, interval = "prediction")
+  cable.required <- predict.lm(cable.lm, newdata = desired.depth, interval = "confidence")
   cable.required2 <- as.numeric(coef(cable.lm)[1] + coef(cable.lm)[2]*as.numeric(desired.depth))
-  cable.required3 <- paste0("Estimated cable required = ", round(cable.required[1]), " ft,  ", " range = ", round(cable.required[2]),
+  cable.required3 <- paste0("Estimated cable required = ", round(cable.required[1]), " ft,  ", " confidence interval for mean cable length at fishing depth = ", round(cable.required[2]),
                             " - ", round(cable.required[3]), " ft")
   return(cable.required3)
 }
