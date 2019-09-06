@@ -5,7 +5,7 @@
 \title{Predict the amount of cable required to reach a desired headrope depth
 with a trawl.}
 \usage{
-CablePred(desired.depth = 10)
+CablePred()
 }
 \arguments{
 \item{desired.depth}{Numeric scale the user enters after being prompted which is equal to the desired
