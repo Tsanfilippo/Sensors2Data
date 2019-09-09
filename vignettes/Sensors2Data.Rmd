@@ -1,0 +1,72 @@
+---
+title: "Using Functions in Sensors2Data"
+author: "David Warner"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using Functions in Sensors2Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This R package is intended primarily for use by USGS Great Lakes Science Center researchers as a tool to help get different types of data out of "raw" data collected by a suite of sensors and/or software commonly in use on our large vessels. These currently include
+
+* csv data files from Marport sensors used on trawls
+* csv data files from Seabird CTD
+* csv data files from RBR depth sensors
+* csv data files from Echoview
+
+
+## Function use examples
+
+### FishDepthTemp()
+This function was written to provide a graphical method for calculating the mean fishing depth and temperature at that depth from data collected with Marport Trawl Explorer, Catch Explorer, and spread sensors. Other sources can be used if the data are structured correctly or if the function is modified to meet your needs. Basic steps include
+* Get data out of Marport SDS file (read Marport Scala manual if you don't know how to do this)
+* Run the function
+* Record the results wherever you like
+
+An example follows:
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+
+```{r, fig.show='hold'}
+library(Sensors2Data)
+FishDepthTemp()
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))

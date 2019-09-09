@@ -67,7 +67,6 @@ server <- function(input, output) {
       values$data <- the.file
 
     }
-    my.df <- reactiveValues(data.frame(values$data))
   })
 
   output$summary1 <- renderPrint({

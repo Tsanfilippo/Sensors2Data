@@ -24,11 +24,15 @@
 NewData<- function(){
   rdat <- dlg_open(title = "Select data file with cable length and fishing depth data.",
                    filters = dlg_filters[c("R", "All"), ])$res
-  warp.fdepth.dat <- read.csv(rdat, header=TRUE)
-  df <- data.frame(Date = NA, Time= NA, Cable.feet = NA, Depth.meters = NA,
+  warp.fdepth.dat <- read.csv(rdat, header=TRUE, stringsAsFactors = FALSE,
+          colClasses = c('character', 'character', 'numeric', 'numeric',
+      'numeric', 'numeric', 'numeric','numeric'))
+  #warp.fdepth.dat$Date.time <- as.POSIXct(warp.fdepth.dat$Date.time)
+  df <- data.frame(Date.time = NA, Transect = NA, Serial = NA, Cable.feet = NA, Depth.meters = NA,
                    Speed = NA, Lake=NA, Vessel = NA, Trawl_Id = NA, Tr_Door = NA)
-  df$Date <- dlg_input(GUI =Date,"Enter date as MM/DD/YY")$res
-  df$Time<- dlg_input(GUI =Time,"Enter time as HH:MM:SS AM/PM")$res
+  df$Date.time <- dlg_input(GUI =Date.time,"Enter the date-time (e.g. 2018-08-12 22:45:00) of the start of the tow")$res
+  df$Serial <- as.numeric(dlg_input(GUI = Serial,"Enter serial as number")$res)
+  df$Transect <- as.character(dlg_input(GUI = Transect,"Enter transect as text (mw4)")$res)
   df$Cable.feet <- as.numeric(dlg_input(GUI = Cable.feet,"Enter length of trawl cable used in feet")$res)
   df$Depth.meters <- as.numeric(dlg_input(GUI =Depth.meters,"Enter headrope depth in meters")$res)
   df$Speed <- as.numeric(dlg_input(GUI =Speed,"Enter speed in mph")$res)
