@@ -23,15 +23,15 @@
 TimeOnBottom <- function() {
 the.file <- dlg_open(title = "Select csv data file with depth and temperature data.",
                    filters = dlg_filters[c("R", "All"), ])$res
-fdep <- dlg_input(GUI = fdep, "Enter approximate fishing depth")$res
+#fdep <- dlg_input(GUI = fdep, "Enter approximate fishing depth")$res
 
 mydat<-read.csv(the.file, header = TRUE)
-fdep <- as.numeric(fdep)
+fdep <- max(mydat$Depth)
 mydat$time2 <-as.POSIXct(mydat$Time)
 mydat$d.diff <- mydat$Depth - fdep
 kpcols <- c("time2", "Temperature", "Depth", "d.diff")
 mydat <- mydat[c(kpcols)]
-mydat <- subset(mydat, abs(d.diff) < 5 )
+mydat <- subset(mydat, abs(d.diff) < 10 )
 
 # create the shiny server.  This is the code that makes the plot and lets you select the data.
 # this is what you run using the next section

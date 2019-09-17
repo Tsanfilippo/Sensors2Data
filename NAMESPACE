@@ -3,6 +3,7 @@
 export(AcousticFishCount)
 export(CablePred)
 export(FishDepthTemp)
+export(FishDepthTempSimple)
 export(NewData)
 export(ProcessSeabird)
 export(TimeOnBottom)

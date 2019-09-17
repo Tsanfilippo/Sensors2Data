@@ -74,7 +74,7 @@ server <- function(input, output) {
   })
 
   output$summary2 <- renderPrint({
-  max.flr.depth <- my.df$Depth.Bin[my.df$fluorescence == max(my.df$fluorescence)]
+  values$data[['Depth.Bin']][values$data[['fluorescence']] == max(values$data[['fluorescence']])]
     #summary(values$data)
   })
 
