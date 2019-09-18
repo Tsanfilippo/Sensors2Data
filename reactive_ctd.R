@@ -2,8 +2,9 @@ library(ggplot2)
 library(dplyr)
 library(oce)
 library(rLakeAnalyzer)
+library(shiny)
 
-the.file <- read.csv("C:\\Users\\dmwarner\\Documents\\Acoustics\\Michigan\\acoustic\\2019\\CTD\\CSV OUTPUT\\2019v88ser214_no4.csv")
+#the.file <- read.csv("C:\\Users\\dmwarner\\Documents\\Acoustics\\Michigan\\acoustic\\2019\\CTD\\CSV OUTPUT\\2019v88ser214_no4.csv")
 
 the.file2 <- the.file
 
@@ -37,7 +38,7 @@ ui <- fluidPage(
   )
 )
 server <- function(input, output) {
-  
+
   values <- reactiveValues(data=the.file)
   output$plot1 <- renderPlot({
     ggplot() +
@@ -47,7 +48,7 @@ server <- function(input, output) {
       geom_path(data=the.file, aes(x=temperature, y=Depth.Bin))+
       scale_y_reverse()
   })
-  
+
   output$plot2 <- renderPlot({
     ggplot() +
       geom_point(data = values$data, aes(fluorescence, Depth.Bin), color="darkgreen") +
@@ -55,33 +56,29 @@ server <- function(input, output) {
       geom_point(data = values$data, aes(temperature, Depth.Bin))+
       geom_path(data = values$data, aes(temperature, Depth.Bin))+
       scale_y_reverse()
-    
+
   })
-  
+
   observe({
     if (!is.null(input$plot1_brush)) {
       values$data <- brushedPoints(the.file, input$plot1_brush)
-      df <- data.frame(Depth.Bin = values$data[['DepthBin']], 
-        fluorescence = values$data[['fluorescence']])
+      my.df <<- as.data.frame(values$data)
     } else {
       values$data <- the.file
-      
+
     }
   })
-  
+
   output$summary1 <- renderPrint({
     the.file$Depth.Bin[the.file$fluorescence == max(the.file$fluorescence)]
   })
-  
+
   output$summary2 <- renderPrint({
-  df$Depth.Bin[df$fluorescence == max(df$fluorescence)]
-
-
+  values$data[['Depth.Bin']][values$data[['fluorescence']] == max(values$data[['fluorescence']])]
+    #summary(values$data)
   })
-  
+
 }
 
 
 shinyApp(ui, server)
-
-
