@@ -11,6 +11,8 @@
 #' @details
 #'  The purpose of this function is to allow the user to graphically select a subset of
 #'  the depth and temperature data recorded by an instrument deployed on the headline of a trawl.
+#'  THis function differs from FishDepthTemp() by not prompting the user for
+#'  date-time.
 #'
 #' @import svDialogs shiny
 #' @export
