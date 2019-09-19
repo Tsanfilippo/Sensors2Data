@@ -1,10 +1,25 @@
-library(ggplot2)
-library(dplyr)
-library(oce)
-library(rLakeAnalyzer)
-library(shiny)
+#'  Create an interactive graph of CTD data recorded by a Seabird
+#'  The user can draw a box around a subset of data and obtain maximum
+#'  fluorescence depth. This will eventually be modified to allow other variables
+#'  and to save the subsetted data to a csv, allowing one to filter bad data.
+#'
+#'
+#' @return
+#' A pair of graphs with the depth of maximum fluorescence displayed.
+#'
+#'
+#' @details
+#'  The purpose of this function is to allow the user to graphically select a subset of
+#'  CTD data to locate the depth of maximum fluorescence. This could be modified
+#'  to also eliminate erroneous data and save the filtered data.
+#'
+#' @import svDialogs shiny ggplot2
+#' @export
+#'
 
-the.file <- read.csv("C:\\Users\\dmwarner\\Documents\\Acoustics\\Michigan\\acoustic\\2019\\CTD\\CSV OUTPUT\\2019v88ser214_no4.csv")
+
+MaxFluorDepth <- function(){
+the.file <- dlg_open(title = "Select one CTD data file", filters = dlg_filters[c("R", "All"), ])$res
 
 the.file2 <- the.file
 
@@ -82,3 +97,4 @@ server <- function(input, output) {
 
 
 shinyApp(ui, server)
+}
